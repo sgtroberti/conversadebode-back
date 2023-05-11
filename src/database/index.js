@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 mongoose.connect(
-  "mongodb+srv://robertiTest:robertiTest@cluster0.xanxa.mongodb.net/vidracaria?retryWrites=true&w=majority"
+  "mongodb+srv://robertiTest:robertiTest@cluster0.xanxa.mongodb.net/conversadebode?retryWrites=true&w=majority"
 );
 mongoose.Promise = global.Promise;
 
