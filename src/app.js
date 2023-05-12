@@ -12,7 +12,11 @@ const port = process.env.PORT || 3001;
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ extended: false, limit: "10mb" }));
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://conversadebode.vercel.app/", // Altere para a origem correta do seu aplicativo
+  })
+);
 
 app.use("/auth", authRouter);
 app.use("/episodes", episodeRouter);
