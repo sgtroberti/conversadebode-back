@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false, limit: "10mb" }));
 
 app.use(
   cors({
-    origin: "https://conversadebode.vercel.app/", // Altere para a origem correta do seu aplicativo
+    origin: "https://conversadebode.vercel.app", // Altere para a origem correta do seu aplicativo
   })
 );
 
