@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 
-mongoose.connect(
-  "mongodb+srv://robertiTest:robertiTest@cluster0.xanxa.mongodb.net/conversadebode?retryWrites=true&w=majority"
-);
+mongoose.connect("mongodb://localhost/conversadebode");
 mongoose.Promise = global.Promise;
 
 export default mongoose;

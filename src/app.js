@@ -9,10 +9,10 @@ import suggestionsController from "./controllers/suggestionsController.js";
 const app = express();
 const port = process.env.PORT || 3001;
 
-app.use(cors());
+app.use(bodyParser.json({ limit: "10mb" }));
+app.use(bodyParser.urlencoded({ extended: false, limit: "10mb" }));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 app.use("/auth", authRouter);
 app.use("/episodes", episodeRouter);
