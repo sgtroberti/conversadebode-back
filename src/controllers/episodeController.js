@@ -4,7 +4,40 @@ import Episode from "../models/episode.js";
 const episodeRouter = express.Router();
 
 episodeRouter.get("/", async (req, res) => {
-  return res.send(await Episode.find());
+  try {
+    const { page, limit } = req.query;
+    const pageNumber = parseInt(page) || 1;
+    const itemsPerPage = parseInt(limit) || 6;
+
+    const totalItems = await Episode.countDocuments();
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+    const response = await Episode.find()
+      .sort({ date: -1 })
+      .skip((pageNumber - 1) * itemsPerPage)
+      .limit(itemsPerPage);
+
+    return res.send({ response, totalPages });
+  } catch (error) {
+    res.send({ error });
+  }
+});
+
+episodeRouter.get("/last", async (req, res) => {
+  try {
+    const getAll = await Episode.findOne().sort({ date: -1 });
+    res.send(getAll);
+  } catch (error) {
+    res.send({ error });
+  }
+});
+
+episodeRouter.get("/all", async (req, res) => {
+  try {
+    res.send(await Episode.find());
+  } catch (error) {
+    res.send({ error });
+  }
 });
 
 episodeRouter.get("/:episodeId", async (req, res) => {
