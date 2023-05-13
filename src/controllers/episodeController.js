@@ -34,7 +34,7 @@ episodeRouter.get("/last", async (req, res) => {
 
 episodeRouter.get("/all", async (req, res) => {
   try {
-    res.send(await Episode.find());
+    res.send(await Episode.find().sort({ date: -1 }));
   } catch (error) {
     res.send({ error });
   }
