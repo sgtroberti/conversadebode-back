@@ -4,7 +4,32 @@ import Recomendation from "../models/recomendation.js";
 const recomendationsController = express.Router();
 
 recomendationsController.get("/", async (req, res) => {
-  return res.send(await Recomendation.find());
+  try {
+    const { page, limit } = req.query;
+    const pageNumber = parseInt(page) || 1;
+    const itemsPerPage = parseInt(limit) || 9;
+
+    const totalItems = await Recomendation.countDocuments();
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+    const response = await Recomendation.find()
+      .skip((pageNumber - 1) * itemsPerPage)
+      .limit(itemsPerPage);
+
+    return res.send({ response, totalPages });
+  } catch (error) {
+    res.send({ error });
+  }
+});
+
+recomendationsController.get("/all", async (req, res) => {
+  try {
+    const recommendations = await Recomendation.find();
+    res.send(recommendations);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Ocorreu um erro ao obter as recomendações.");
+  }
 });
 
 recomendationsController.get("/:recomendationId", async (req, res) => {
