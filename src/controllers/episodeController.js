@@ -7,7 +7,7 @@ episodeRouter.get("/", async (req, res) => {
   try {
     const { page, limit } = req.query;
     const pageNumber = parseInt(page) || 1;
-    const itemsPerPage = parseInt(limit) || 6;
+    const itemsPerPage = parseInt(limit) || 7;
 
     const totalItems = await Episode.countDocuments();
     const totalPages = Math.ceil(totalItems / itemsPerPage);
